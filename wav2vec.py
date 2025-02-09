@@ -7,7 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class Wav2Vec(nn.Module):
-    def __init__(self, input_dim, embed_dim, ffn_dim, depthwise_conv_kernel_size, num_heads, N, mask_ratio=0.2, distraction_ratio=0.2):
+    def __init__(self, input_dim, embed_dim, ffn_dim, depthwise_conv_kernel_size, num_heads, num_conformers, mask_ratio=0.2, distraction_ratio=0.2):
         super(Wav2Vec, self).__init__()
         # (bs, T, input_dim) -> (bs, T, embed_dim)
 
@@ -22,7 +22,7 @@ class Wav2Vec(nn.Module):
                 input_dim=embed_dim,
                 num_heads=num_heads,
                 ffn_dim=ffn_dim,
-                num_layers=N,
+                num_layers=num_conformers,
                 depthwise_conv_kernel_size=depthwise_conv_kernel_size,
                 dropout=0.2,)
         self.target_encoder = nn.Linear(embed_dim, embed_dim)
